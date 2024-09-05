@@ -32,7 +32,7 @@ RUN export NVM_DIR="$HOME/.nvm" \
     && npm install bower -g \ 
     && npm install gulp -g \
     && npm install nodemon -g \
-    && npm install -f node-sass \
+    && npm install -f sass \
     && npm install pm2 -g
 
 RUN dnf -y install \
