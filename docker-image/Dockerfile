@@ -83,8 +83,12 @@ RUN echo "extension=stats.so" >> /etc/php/7.4/cli/php.ini
 # # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/apache2/php.ini
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/cli/php.ini
-# # installing composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
+
+# installing the  composer 1.x 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.27
+
+# installing the  composer 2.x 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer2 --version=2.7.8
 
 #install mod_vhost_alias
 RUN a2enmod vhost_alias
