@@ -33,7 +33,7 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | b
     && npm install bower -g \ 
     && npm install gulp -g \
     && npm install nodemon -g \
-    && npm install -f node-sass \
+    && npm install -f sass \
     && npm install pm2 -g
 
 ENV NODE_PATH_D $NVM_DIR/v$NODE_VERSION_D/lib/node_modules
@@ -125,7 +125,7 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install Xdebug
+RUN pecl install xdebug-3.1.4
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/apache2/php.ini
