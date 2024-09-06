@@ -104,8 +104,8 @@ RUN  chmod +x /usr/bin/phpunit8
 RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
-# enable and configure xdebug-3.1.4
-pecl install xdebug-3.1.4
+# enable and configure xdebug
+RUN pecl install xdebug-3.1.4
 
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
