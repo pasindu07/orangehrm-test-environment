@@ -126,6 +126,8 @@ RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
 RUN pecl install xdebug-3.1.4
+RUN echo "zend_extension=xdebug" >> /etc/php/7.4/apache2/php.ini
+RUN echo "zend_extension=xdebug" >> /etc/php/7.4/cli/php.ini
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/apache2/php.ini
