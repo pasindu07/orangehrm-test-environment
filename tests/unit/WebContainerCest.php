@@ -51,7 +51,7 @@ class WebContainerCest
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
         $I->runShellCommand("docker exec test_web nc -h");
-        $I->seeInShellOutput('Ncat');
+        $I->seeInShellOutput('netcat');
 
     }
 
@@ -59,26 +59,26 @@ class WebContainerCest
         $I->wantTo("verify xdebug is installed in the image");
         $I->runShellCommand("docker exec test_web bash -c 'php --version | grep Xdebug'");
         $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('v3');
+        $I->seeInShellOutput('v3.1.4');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
         $I->wantTo("verify git is installed in the image");
         $I->runShellCommand("docker exec test_web git --version");
-        $I->seeInShellOutput('version 1');
+        $I->seeInShellOutput('git version 2.25.1');
     }
 
 
     public function checkNMAPIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify nmap is installed in the image");
         $I->runShellCommand("docker exec test_web nmap -V");
-        $I->seeInShellOutput('version 6');
+        $I->seeInShellOutput('version 7.80');
     }
 
 
     public function checkNodeIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify node is installed in the image");
-        $I->runShellCommand("docker exec test_web node -v");
+        $I->runShellCommand('docker exec test_web export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";node -v');
         $I->seeInShellOutput('v6');
     }
 
@@ -122,7 +122,7 @@ class WebContainerCest
     public function checkVIMIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify vim editor is installed in the image");
         $I->runShellCommand("docker exec test_web vim --version");
-        $I->seeInShellOutput('Vi IMproved 7');
+        $I->seeInShellOutput('Vi IMproved 8.1');
     }
 
     public function checkComposerIsInstalled(AcceptanceTester $I){
