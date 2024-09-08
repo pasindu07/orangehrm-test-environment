@@ -51,7 +51,7 @@ class WebContainerCest
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
         $I->runShellCommand("docker exec test_web bash -c 'apt info netcat | grep Version'");
-        $I->seeInShellOutput('1.206)');
+        $I->seeInShellOutput('1.206');
 
     }
 
