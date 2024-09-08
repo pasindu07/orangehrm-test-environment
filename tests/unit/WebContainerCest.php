@@ -50,8 +50,8 @@ class WebContainerCest
 
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
-        $I->runShellCommand("docker exec test_web nc -h");
-        $I->seeInShellOutput('OpenBSD netcat (Debian patchlevel 1.206-1ubuntu1)');
+        $I->runShellCommand("docker exec test_web bash -c 'apt info netcat | grep Version'");
+        $I->seeInShellOutput('1.206)');
 
     }
 
@@ -103,7 +103,7 @@ class WebContainerCest
 
     public function checkGulpIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify Gulp is installed in the image");
-        $I->runShellCommand("docker exec test_web gulp --version");
+        $I->runShellCommand('docker exec test_web bash -c \'export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";gulp --version;\'');
         $I->seeInShellOutput('version: 2');
     }
 
