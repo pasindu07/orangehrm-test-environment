@@ -11,8 +11,9 @@ RUN subscription-manager register --username $REDHAT_USERNAME --password $REDHAT
 subscription-manager refresh && \
 subscription-manager attach --auto
 
+# remove mariadb repo
+RUN rm -rf /etc/yum.repos.d/mariadb.repo
 # install dependent software
-RUN dnf clean all
 RUN dnf install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
