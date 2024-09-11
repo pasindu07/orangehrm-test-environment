@@ -12,6 +12,7 @@ subscription-manager refresh && \
 subscription-manager attach --auto
 
 # install dependent software
+RUN dnf clean all
 RUN dnf install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
 
