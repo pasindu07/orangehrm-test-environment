@@ -32,9 +32,8 @@ RUN export NVM_DIR="$HOME/.nvm" \
     && nvm ls \
     && nvm use default \ 
     && npm install bower -g \ 
-    && npm install gulp-cli@2.3.0 -g \
+    && npm install gulp -g \
     && npm install nodemon -g \
-    && npm install -f sass \
     && npm install pm2 -g
 
 RUN dnf -y install \
