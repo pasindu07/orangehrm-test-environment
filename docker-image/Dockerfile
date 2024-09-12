@@ -29,10 +29,12 @@ RUN export NVM_DIR="$HOME/.nvm" \
     && nvm alias default 6 \
     && nvm install 14.17.5 \
     && nvm alias latest 14.17.5 \
+    && nvm install 18.18.0 \
+    && nvm alias hydrogen 18.18.0 \
     && nvm ls \
     && nvm use default \ 
     && npm install bower -g \ 
-    && npm install gulp -g \
+    && npm install -g gulp@4.0.2 \
     && npm install nodemon -g \
     && npm install pm2 -g
 
