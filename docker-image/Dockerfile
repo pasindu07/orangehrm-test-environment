@@ -31,9 +31,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | b
     && nvm ls \
     && nvm use default \ 
     && npm install bower -g \ 
-    && npm install gulp-cli@2.3.0 -g \
+    && npm install -g gulp@4.0.2 \
     && npm install nodemon -g \
-    && npm install -f sass \
     && npm install pm2 -g
 
 ENV NODE_PATH_D $NVM_DIR/v$NODE_VERSION_D/lib/node_modules
