@@ -1,4 +1,4 @@
-# OrangeHRM TEST Environment for PHP 5.5
+# OrangeHRM TEST Environment for PHP 7.4
 [![Docker Automated](https://img.shields.io/docker/automated/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Docker Status](https://img.shields.io/docker/build/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Docker Pulls](https://img.shields.io/docker/pulls/orangehrm/orangehrm-environment-images.svg)](https://hub.docker.com/r/orangehrm/orangehrm-environment-images/) [![Build Status](https://travis-ci.org/orangehrm/orangehrm-uat-environment.svg?branch=php-5.6)](https://travis-ci.org/orangehrm/orangehrm-uat-environment)
 
 ## Introduction
@@ -26,7 +26,7 @@ Make sure mentioned prerequisites are there in your host machine.
 
 | Container Name   | Service Name in docker-compose.yml | Description | IP Address | Used Ports |
 |----------------- |------------------------------------|-------------|------------|------------|
-| test_web         | web                                | PHP 5.6     | 10.5.0.2   | 443        |
+| test_web         | web                                | PHP 7.4     | 10.5.0.2   | 443        |
 | test_mysql       | db                                 | MySQL 5.5   | 10.5.0.3   | 3306       |
 | test_phpmyadmin  | phpmyadmin                         | phpMyAdmin  | 10.5.0.4   | 9090       |
 

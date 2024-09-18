@@ -11,6 +11,8 @@ RUN subscription-manager register --username $REDHAT_USERNAME --password $REDHAT
 subscription-manager refresh && \
 subscription-manager attach --auto
 
+# remove mariadb repo
+RUN rm -rf /etc/yum.repos.d/mariadb.repo
 # install dependent software
 RUN dnf install -y gcc-c++ make
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
@@ -27,12 +29,13 @@ RUN export NVM_DIR="$HOME/.nvm" \
     && nvm alias default 6 \
     && nvm install 14.17.5 \
     && nvm alias latest 14.17.5 \
+    && nvm install 18.18.0 \
+    && nvm alias hydrogen 18.18.0 \
     && nvm ls \
     && nvm use default \ 
     && npm install bower -g \ 
-    && npm install gulp -g \
+    && npm install -g gulp@4.0.2 \
     && npm install nodemon -g \
-    && npm install -f node-sass \
     && npm install pm2 -g
 
 RUN dnf -y install \
@@ -66,8 +69,11 @@ RUN echo "extension=stats.so" >> /etc/php.ini
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 
-# installing composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
+# installing the  composer 1.x 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.27
+
+# installing the  composer 2.x 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer2 --version=2.7.8
 
 #add vhost config
 COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
@@ -102,7 +108,7 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install Xdebug
+RUN pecl install xdebug-3.1.4
 
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
