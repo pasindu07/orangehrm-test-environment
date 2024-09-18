@@ -31,9 +31,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | b
     && nvm ls \
     && nvm use default \ 
     && npm install bower -g \ 
-    && npm install gulp -g \
+    && npm install -g gulp@4.0.2 \
     && npm install nodemon -g \
-    && npm install -f node-sass \
     && npm install pm2 -g
 
 ENV NODE_PATH_D $NVM_DIR/v$NODE_VERSION_D/lib/node_modules
@@ -83,8 +82,12 @@ RUN echo "extension=stats.so" >> /etc/php/7.4/cli/php.ini
 # # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/apache2/php.ini
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/cli/php.ini
-# # installing composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
+
+# installing the  composer 1.x 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.27
+
+# installing the  composer 2.x 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer2 --version=2.7.8
 
 #install mod_vhost_alias
 RUN a2enmod vhost_alias
@@ -121,7 +124,9 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install Xdebug
+RUN pecl install xdebug-3.1.4
+RUN echo "zend_extension=xdebug" >> /etc/php/7.4/apache2/php.ini
+RUN echo "zend_extension=xdebug" >> /etc/php/7.4/cli/php.ini
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/apache2/php.ini

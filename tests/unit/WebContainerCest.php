@@ -43,43 +43,43 @@ class WebContainerCest
     }
 
     public function checkPHPUnit8Version(UnitTester $I){
-        $I->wantTo("verify phpunit 8 library is installed in the container");
+        $I->wantTo("verify phpunit 8 library is installed in the scontainer");
         $I->runShellCommand("docker exec test_web phpunit8 --version");
         $I->seeInShellOutput('PHPUnit 8.2.5');
     }
 
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
-        $I->runShellCommand("docker exec test_web nc -h");
-        $I->seeInShellOutput('Ncat');
+        $I->runShellCommand("docker exec test_web bash -c 'apt info netcat | grep Version'");
+        $I->seeInShellOutput('1.206');
 
     }
 
     public function checkXdebugVersion(AcceptanceTester $I){
         $I->wantTo("verify xdebug is installed in the image");
-        $I->runShellCommand("docker exec test_web bash -c 'yum info php-pecl-xdebug | grep Version'");
-        $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('2');
+        $I->runShellCommand("docker exec test_web bash -c 'php --version | grep Xdebug'");
+        $I->seeInShellOutput('Xdebug');
+        $I->seeInShellOutput('v3.1.4');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
         $I->wantTo("verify git is installed in the image");
         $I->runShellCommand("docker exec test_web git --version");
-        $I->seeInShellOutput('version 1');
+        $I->seeInShellOutput('git version 2.25.1');
     }
 
 
     public function checkNMAPIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify nmap is installed in the image");
         $I->runShellCommand("docker exec test_web nmap -V");
-        $I->seeInShellOutput('version 6');
+        $I->seeInShellOutput('version 7.80');
     }
 
 
     public function checkNodeIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify node is installed in the image");
-        $I->runShellCommand("docker exec test_web node -v");
-        $I->seeInShellOutput('v6');
+        $I->runShellCommand('docker exec test_web bash -c \'export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";node -v;\'');
+        $I->seeInShellOutput('v6.17.1');
     }
 
 
@@ -97,13 +97,13 @@ class WebContainerCest
 
     public function checkBowerIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify bower is installed in the image");
-        $I->runShellCommand("docker exec test_web bower --version");
+        $I->runShellCommand('docker exec test_web bash -c \'export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";bower --version;\'');
         $I->seeInShellOutput('1.8');
     }
 
     public function checkGulpIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify Gulp is installed in the image");
-        $I->runShellCommand("docker exec test_web gulp --version");
+        $I->runShellCommand('docker exec test_web bash -c \'export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";gulp --version;\'');
         $I->seeInShellOutput('version: 2');
     }
 
@@ -122,12 +122,18 @@ class WebContainerCest
     public function checkVIMIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify vim editor is installed in the image");
         $I->runShellCommand("docker exec test_web vim --version");
-        $I->seeInShellOutput('Vi IMproved 7');
+        $I->seeInShellOutput('Vi IMproved 8.1');
     }
 
     public function checkComposerIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify composer is installed in the image");
         $I->runShellCommand("docker exec test_web composer --version");
         $I->seeInShellOutput('Composer version 1');
+    }
+
+    public function checkComposer2IsInstalled(AcceptanceTester $I){
+        $I->wantTo("verify composer2 is installed in the image");
+        $I->runShellCommand("docker exec test_web composer2 --version");
+        $I->seeInShellOutput('Composer version ');
     }
 }
