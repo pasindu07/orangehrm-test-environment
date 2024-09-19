@@ -136,4 +136,17 @@ class WebContainerCest
         $I->runShellCommand("docker exec test_web composer2 --version");
         $I->seeInShellOutput('Composer version ');
     }
+
+    public function checkOslonDBInstallation(UnitTester $I){
+        $I->wantTo("verify Oslon DB is installed in the container");
+        $I->runShellCommand("docker exec test_web php -i | grep -i timezone");
+        $I->seeInShellOutput('Timezone Database Version => 2024');
+    }
+
+    public function checkwkhtmltopdfInstallation(UnitTester $I){
+        $I->wantTo("verify Oslon DB is installed in the container");
+        $I->runShellCommand("docker exec test_web wkhtmltopdf --version");
+        $I->seeInShellOutput('wkhtmltopdf 0.12');
+    }
+
 }
