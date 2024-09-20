@@ -28,6 +28,8 @@ RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | b
     && nvm alias default $NODE_VERSION_D \
     && nvm install $NODE_VERSION_L \
     && nvm alias latest $NODE_VERSION_L \
+    && nvm install 18.18.0 \
+    && nvm alias hydrogen 18.18.0 \
     && nvm ls \
     && nvm use default \ 
     && npm install bower -g \ 
