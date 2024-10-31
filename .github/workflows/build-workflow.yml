@@ -10,7 +10,7 @@ on:
 env:
   REGISTRY: hub.docker.com
   DOCKER_HUB_REPO: "orangehrm/orangehrm-environment-images"
-  TAG_NAME: "test-php-7.4.19-rhel-8"
+  TAG_NAME: "test-php-7.4.33-rhel-8"
   LATEST_TAG_NAME: "test-php-latest-rhel-8"
   UPSTREAM_REPO: "orangehrm/orangehrm-test-environment"
   UPSTREAM_BRANCH: "refs/heads/php-7.4-rhel-8"
@@ -28,7 +28,7 @@ jobs:
       - name: Verify prerequisites
         run: |
           docker --version
-          docker-compose --version
+          docker compose --version
           composer --version
   
       - name: Install test suite dependencies
@@ -39,7 +39,7 @@ jobs:
 
       - name: Spin up the container
         run: |
-          docker-compose up -d
+          docker compose up -d
           docker ps -a
 
       - name: Run unit test suite

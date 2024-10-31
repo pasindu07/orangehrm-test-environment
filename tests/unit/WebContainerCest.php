@@ -130,4 +130,23 @@ class WebContainerCest
         $I->runShellCommand("docker exec test_web_rhel composer --version");
         $I->seeInShellOutput('Composer version 1');
     }
+
+    public function checkComposer2IsInstalled(AcceptanceTester $I){
+        $I->wantTo("verify composer2 is installed in the image");
+        $I->runShellCommand("docker exec test_web_rhel composer2 --version");
+        $I->seeInShellOutput('Composer version 2');
+    }
+
+    public function checkOslonDBInstallation(UnitTester $I){
+        $I->wantTo("verify Oslon DB is installed in the container");
+        $I->runShellCommand("docker exec test_web_rhel php -i | grep -i timezone");
+        $I->seeInShellOutput('Timezone Database Version => 2024');
+    }
+
+    public function checkwkhtmltopdfInstallation(UnitTester $I){
+        $I->wantTo("verify Oslon DB is installed in the container");
+        $I->runShellCommand("docker exec test_web_rhel wkhtmltopdf --version");
+        $I->seeInShellOutput('wkhtmltopdf 0.12');
+    }
+
 }
