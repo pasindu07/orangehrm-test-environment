@@ -61,7 +61,7 @@ class PHPConfigCest
     public function checkPHPConfig_memory_limit(UnitTester $I){
         $I->wantTo("verify the config - memory_limit = 2048M");
         $I->runShellCommand("docker exec test_web_rhel php -r \"echo ini_get('memory_limit');\"");
-        $I->canSeeInShellOutput("2560M");
+        $I->canSeeInShellOutput("2048M");
     }
 
     public function checkPHPConfig_max_input_vars(UnitTester $I){
