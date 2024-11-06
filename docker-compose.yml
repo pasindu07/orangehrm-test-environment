@@ -12,4 +12,4 @@ services:
     privileged: true
     restart: always
     hostname: orangehrm-test-web
-    container_name: test_web
+    container_name: test_web_ubuntu
