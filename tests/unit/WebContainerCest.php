@@ -58,8 +58,7 @@ class WebContainerCest
     public function checkXdebugVersion(AcceptanceTester $I){
         $I->wantTo("verify xdebug is installed in the image");
         $I->runShellCommand("docker exec test_web_ubuntu bash -c 'pecl list | grep xdebug'");
-        $I->seeInShellOutput('Xdebug');
-        $I->seeInShellOutput('v3.1.4');
+        $I->seeInShellOutput('xdebug    3.1.4');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
