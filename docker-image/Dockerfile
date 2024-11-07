@@ -22,12 +22,14 @@ ENV NODE_VERSION_D 6
 ENV NODE_VERSION_L 14.17.5
 
 #installing nodejs
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
+    && source ~/.bashrc \
     && . $NVM_DIR/nvm.sh \  
-    && nvm install $NODE_VERSION_D \
-    && nvm alias default $NODE_VERSION_D \
-    && nvm install $NODE_VERSION_L \
-    && nvm alias latest $NODE_VERSION_L \
+    && source ~/.bashrc \
+    && nvm install 6 \
+    && nvm alias default 6 \
+    && nvm install 14.17.5 \
+    && nvm alias latest 14.17.5 \
     && nvm install 18.18.0 \
     && nvm alias hydrogen 18.18.0 \
     && nvm ls \
@@ -70,11 +72,6 @@ RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkh
 RUN apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb
 RUN rm -r wkhtmltox_0.12.6-1.focal_amd64.deb
 
-#update OSLON Timezone DB
-RUN pecl install timezonedb
-RUN echo "extension=timezonedb.so" >> /etc/php/7.4/apache2/php.ini
-RUN echo "extension=timezonedb.so" >> /etc/php/7.4/cli/php.ini
-
 # # install php-ast module
 RUN pecl install ast
 RUN echo "extension=ast.so" >> /etc/php/7.4/apache2/php.ini
@@ -89,12 +86,8 @@ RUN echo "extension=stats.so" >> /etc/php/7.4/cli/php.ini
 # # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/apache2/php.ini
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/cli/php.ini
-
-# installing the  composer 1.x 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.27
-
-# installing the  composer 2.x 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer2 --version=2.7.8
+# # installing composer
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
 
 #install mod_vhost_alias
 RUN a2enmod vhost_alias
@@ -132,8 +125,6 @@ RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
 RUN pecl install xdebug-3.1.4
-RUN echo "zend_extension=xdebug" >> /etc/php/7.4/apache2/php.ini
-RUN echo "zend_extension=xdebug" >> /etc/php/7.4/cli/php.ini
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/apache2/php.ini
