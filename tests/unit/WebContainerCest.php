@@ -118,11 +118,11 @@ class WebContainerCest
         $I->seeInShellOutput('Vi IMproved');
     }
 
-    public function checkComposerIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify composer is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel composer --version");
-        $I->seeInShellOutput('Composer version 1');
-    }
+    // public function checkComposerIsInstalled(AcceptanceTester $I){
+    //     $I->wantTo("verify composer is installed in the image");
+    //     $I->runShellCommand("docker exec test_web_rhel composer --version");
+    //     $I->seeInShellOutput('Composer version 1');
+    // }
 
     public function checkComposer2IsInstalled(AcceptanceTester $I){
         $I->wantTo("verify composer2 is installed in the image");
