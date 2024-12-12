@@ -86,7 +86,7 @@ RUN ln -s /etc/httpd/sites-available/000-default.conf /etc/httpd/sites-enabled/0
 # Install wkhtmltopdf
 RUN dnf install -y https://repo.almalinux.org/almalinux/8/AppStream/x86_64/os/Packages/xorg-x11-fonts-75dpi-7.5-19.el8.noarch.rpm
 RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox-0.12.6-1.centos8.x86_64.rpm
-RUN dnf localinstall -y wkhtmltox-0.12.6-1.centos8.x86_64.rpm
+RUN dnf localinstall -y wkhtmltox-0.12.6-1.centos8.x86_64.rpm && rm -f wkhtmltox-0.12.6-1.centos8.x86_64.rpm
 
 # copy configuration files
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
