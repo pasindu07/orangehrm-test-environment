@@ -92,19 +92,23 @@ RUN dnf localinstall -y wkhtmltox-0.12.6-1.centos8.x86_64.rpm && rm -f wkhtmltox
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
 COPY config/mysql-client/conf.d /etc/mysql/conf.d
 COPY config/db-check.sh /var/www/db-check.sh
-COPY phpunit-5.7.21.phar /usr/bin/phpunit
-COPY phpunit-3.7.28.phar /usr/bin/phpunit3
-COPY phpunit-7.5.14.phar /usr/bin/phpunit7
-COPY phpunit-8.2.5.phar /usr/bin/phpunit8
+# COPY phpunit-5.7.21.phar /usr/bin/phpunit
+# COPY phpunit-3.7.28.phar /usr/bin/phpunit3
+# COPY phpunit-7.5.14.phar /usr/bin/phpunit7
+# COPY phpunit-8.2.5.phar /usr/bin/phpunit8
+COPY phpunit-8.5.41.phar /usr/bin/phpunit
+COPY phpunit-9.6.22.phar /usr/bin/phpunit9
+COPY phpunit-10.5.39.phar /usr/bin/phpunit10
+COPY phpunit-11.5.1.phar /usr/bin/phpunit11
 
 COPY config/nvm /opt/nvm
 
 RUN  chmod 544 /opt/nvm
 
 RUN  chmod +x /usr/bin/phpunit
-RUN  chmod +x /usr/bin/phpunit3
-RUN  chmod +x /usr/bin/phpunit7
-RUN  chmod +x /usr/bin/phpunit8
+RUN  chmod +x /usr/bin/phpunit9
+RUN  chmod +x /usr/bin/phpunit10
+RUN  chmod +x /usr/bin/phpunit11
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
