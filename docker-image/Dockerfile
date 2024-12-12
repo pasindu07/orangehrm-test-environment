@@ -96,7 +96,7 @@ COPY config/db-check.sh /var/www/db-check.sh
 # COPY phpunit-3.7.28.phar /usr/bin/phpunit3
 # COPY phpunit-7.5.14.phar /usr/bin/phpunit7
 # COPY phpunit-8.2.5.phar /usr/bin/phpunit8
-COPY phpunit-8.5.41.phar /usr/bin/phpunit
+COPY phpunit-8.5.41.phar /usr/bin/phpunit8
 COPY phpunit-9.6.22.phar /usr/bin/phpunit9
 COPY phpunit-10.5.39.phar /usr/bin/phpunit10
 COPY phpunit-11.5.1.phar /usr/bin/phpunit11
