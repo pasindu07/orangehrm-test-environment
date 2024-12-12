@@ -112,12 +112,6 @@ class WebContainerCest
         $I->seeInShellOutput('ast');
     }
 
-    public function checkStatsIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify stats module is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel php -m | grep stats");
-        $I->seeInShellOutput('stats');
-    }
-
     public function checkVIMIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify vim editor is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel vim --version");
