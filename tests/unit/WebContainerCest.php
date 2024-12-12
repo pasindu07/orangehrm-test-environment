@@ -137,7 +137,7 @@ class WebContainerCest
     }
 
     public function checkwkhtmltopdfInstallation(UnitTester $I){
-        $I->wantTo("verify Oslon DB is installed in the container");
+        $I->wantTo("verify wkhtmltopdf is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel wkhtmltopdf --version");
         $I->seeInShellOutput('wkhtmltopdf 0.12');
     }
