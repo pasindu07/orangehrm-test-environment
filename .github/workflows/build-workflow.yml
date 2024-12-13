@@ -12,7 +12,7 @@ env:
   DOCKER_HUB_REPO: "orangehrm/test-environment-redhat9"
   LATEST_TAG_NAME: "php-8.2-latest"
   UPSTREAM_REPO: "orangehrm/orangehrm-test-environment"
-  UPSTREAM_BRANCH: "refs/heads/php-7.4-rhel-8"
+  UPSTREAM_BRANCH: "refs/heads/php-8.2-latest"
 
 jobs:
 
