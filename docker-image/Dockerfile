@@ -81,9 +81,9 @@ RUN echo "extension=ast.so" >> /etc/php/8.3/apache2/php.ini
 RUN echo "extension=ast.so" >> /etc/php/8.3/cli/php.ini
 
 # #install php-stats module
-RUN pecl install stats-2.0.3
-RUN echo "extension=stats.so" >> /etc/php/7.4/apache2/php.ini
-RUN echo "extension=stats.so" >> /etc/php/7.4/cli/php.ini
+# RUN pecl install stats-2.0.3
+# RUN echo "extension=stats.so" >> /etc/php/8.3/apache2/php.ini
+# RUN echo "extension=stats.so" >> /etc/php/8.3/cli/php.ini
 
 
 # # temporary switch on the "allow_url_fopen" to install composer and phan
