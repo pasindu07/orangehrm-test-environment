@@ -19,59 +19,53 @@ class WebContainerCest
 
 
     public function checkPHPVersion(UnitTester $I){
-        $I->wantTo("verify php 7.4 is installed in the container");
+        $I->wantTo("verify php 8.3 is installed in the container");
         $I->runShellCommand("docker exec test_web_ubuntu php --version");
-        $I->seeInShellOutput('PHP 7.4');
-    }
-
-    public function checkPHPUnitVersion(UnitTester $I){
-        $I->wantTo("verify phpunit 5 library is installed in the container");
-        $I->runShellCommand("docker exec test_web_ubuntu phpunit --version");
-        $I->seeInShellOutput('PHPUnit 5.7.21');
-    }
-
-    public function checkPHPUnit3Version(UnitTester $I){
-        $I->wantTo("verify phpunit 3 library is installed in the container");
-        $I->runShellCommand("docker exec test_web_ubuntu phpunit3 --version");
-        $I->seeInShellOutput('PHPUnit 3.7.28');
-    }
-
-    public function checkPHPUnit7Version(UnitTester $I){
-        $I->wantTo("verify phpunit 7 library is installed in the container");
-        $I->runShellCommand("docker exec test_web_ubuntu phpunit7 --version");
-        $I->seeInShellOutput('PHPUnit 7.5.14');
+        $I->seeInShellOutput('PHP 8.3');
     }
 
     public function checkPHPUnit8Version(UnitTester $I){
-        $I->wantTo("verify phpunit 8 library is installed in the scontainer");
+        $I->wantTo("verify phpunit 8 library is installed in the container");
         $I->runShellCommand("docker exec test_web_ubuntu phpunit8 --version");
-        $I->seeInShellOutput('PHPUnit 8.2.5');
+        $I->seeInShellOutput('PHPUnit 8.5.41');
+    }
+
+    public function checkPHPUnit9Version(UnitTester $I){
+        $I->wantTo("verify phpunit 9 library is installed in the container");
+        $I->runShellCommand("docker exec test_web_ubuntu phpunit9 --version");
+        $I->seeInShellOutput('PHPUnit 9.6.22');
+    }
+
+    public function checkPHPUnit10Version(UnitTester $I){
+        $I->wantTo("verify phpunit 10 library is installed in the container");
+        $I->runShellCommand("docker exec test_web_ubuntu phpunit10 --version");
+        $I->seeInShellOutput('PHPUnit 10.5.39');
+    }
+
+    public function checkPHPUnit11Version(UnitTester $I){
+        $I->wantTo("verify phpunit 11 library is installed in the container");
+        $I->runShellCommand("docker exec test_web_ubuntu phpunit11 --version");
+        $I->seeInShellOutput('PHPUnit 11.5.1');
     }
 
     public function checkNcCommand(UnitTester $I){
         $I->wantTo("verify nc command is installed in the image");
-        $I->runShellCommand("docker exec test_web_ubuntu bash -c 'apt info netcat | grep Version'");
-        $I->seeInShellOutput('1.206');
+        $I->runShellCommand("docker exec test_web_ubuntu bash -c 'apt list --installed | grep netcat'");
+        $I->seeInShellOutput('netcat');
 
-    }
-
-    public function checkXdebugVersion(AcceptanceTester $I){
-        $I->wantTo("verify xdebug is installed in the image");
-        $I->runShellCommand("docker exec test_web_ubuntu bash -c 'pecl list | grep xdebug'");
-        $I->seeInShellOutput('xdebug    3.1.4');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
         $I->wantTo("verify git is installed in the image");
         $I->runShellCommand("docker exec test_web_ubuntu git --version");
-        $I->seeInShellOutput('git version 2.25.1');
+        $I->seeInShellOutput('git version 2.43.0');
     }
 
 
     public function checkNMAPIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify nmap is installed in the image");
         $I->runShellCommand("docker exec test_web_ubuntu nmap -V");
-        $I->seeInShellOutput('version 7.80');
+        $I->seeInShellOutput('version 7.94');
     }
 
 
@@ -112,34 +106,22 @@ class WebContainerCest
         $I->seeInShellOutput('ast');
     }
 
-    public function checkStatsIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify stats module is installed in the image");
-        $I->runShellCommand("docker exec test_web_ubuntu php -m | grep stats");
-        $I->seeInShellOutput('stats');
-    }
-
     public function checkVIMIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify vim editor is installed in the image");
         $I->runShellCommand("docker exec test_web_ubuntu vim --version");
-        $I->seeInShellOutput('Vi IMproved 8.1');
+        $I->seeInShellOutput('Vi IMproved 9.1');
     }
 
     public function checkComposerIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify composer is installed in the image");
         $I->runShellCommand("docker exec test_web_ubuntu composer --version");
-        $I->seeInShellOutput('Composer version 1');
+        $I->seeInShellOutput('Composer version 2');
     }
-
-    // public function checkComposer2IsInstalled(AcceptanceTester $I){
-    //     $I->wantTo("verify composer2 is installed in the image");
-    //     $I->runShellCommand("docker exec test_web_ubuntu composer2 --version");
-    //     $I->seeInShellOutput('Composer version ');
-    // }
 
     public function checkOslonDBInstallation(UnitTester $I){
         $I->wantTo("verify Oslon DB is installed in the container");
         $I->runShellCommand("docker exec test_web_ubuntu php -i | grep -i timezone");
-        $I->seeInShellOutput('Timezone Database Version => 0.system');
+        $I->seeInShellOutput('Timezone Database Version => 2024.2');
     }
 
     public function checkwkhtmltopdfInstallation(UnitTester $I){

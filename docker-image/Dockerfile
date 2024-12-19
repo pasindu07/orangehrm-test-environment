@@ -1,6 +1,5 @@
-FROM orangehrm/orangehrm-environment-images:prod-php-7.4-ubuntu20.04
+FROM orangehrm/prod-environment:ubuntu24.04-php8.3-latest
 
-MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
@@ -22,14 +21,12 @@ ENV NODE_VERSION_D 6
 ENV NODE_VERSION_L 14.17.5
 
 #installing nodejs
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
-    && source ~/.bashrc \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash \
     && . $NVM_DIR/nvm.sh \  
-    && source ~/.bashrc \
-    && nvm install 6 \
-    && nvm alias default 6 \
-    && nvm install 14.17.5 \
-    && nvm alias latest 14.17.5 \
+    && nvm install $NODE_VERSION_D \
+    && nvm alias default $NODE_VERSION_D \
+    && nvm install $NODE_VERSION_L \
+    && nvm alias latest $NODE_VERSION_L \
     && nvm install 18.18.0 \
     && nvm alias hydrogen 18.18.0 \
     && nvm ls \
@@ -68,26 +65,33 @@ RUN git config --system url."https://".insteadOf git://
 #RUN npm install -f node-sass
 
 #install wkhtmltopdf (0.12.6)
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
-RUN apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb
-RUN rm -r wkhtmltox_0.12.6-1.focal_amd64.deb
+# RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+# RUN apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb
+# RUN rm -r wkhtmltox_0.12.6-1.focal_amd64.deb
+RUN apt install -y wkhtmltopdf
+
+#update OSLON Timezone DB
+RUN pecl install timezonedb
+RUN echo "extension=timezonedb.so" >> /etc/php/8.3/apache2/php.ini
+RUN echo "extension=timezonedb.so" >> /etc/php/8.3/cli/php.ini
 
 # # install php-ast module
 RUN pecl install ast
-RUN echo "extension=ast.so" >> /etc/php/7.4/apache2/php.ini
-RUN echo "extension=ast.so" >> /etc/php/7.4/cli/php.ini
+RUN echo "extension=ast.so" >> /etc/php/8.3/apache2/php.ini
+RUN echo "extension=ast.so" >> /etc/php/8.3/cli/php.ini
 
 # #install php-stats module
-RUN pecl install stats-2.0.3
-RUN echo "extension=stats.so" >> /etc/php/7.4/apache2/php.ini
-RUN echo "extension=stats.so" >> /etc/php/7.4/cli/php.ini
+# RUN pecl install stats-2.0.3
+# RUN echo "extension=stats.so" >> /etc/php/8.3/apache2/php.ini
+# RUN echo "extension=stats.so" >> /etc/php/8.3/cli/php.ini
 
 
 # # temporary switch on the "allow_url_fopen" to install composer and phan
-RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/apache2/php.ini
-RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/7.4/cli/php.ini
-# # installing composer
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.20
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/8.3/apache2/php.ini
+RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php/8.3/cli/php.ini
+
+# installing the  composer 2.x 
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=2.7.8
 
 #install mod_vhost_alias
 RUN a2enmod vhost_alias
@@ -109,26 +113,28 @@ RUN ln -s /etc/apache2/sites-available/000-default.conf /etc/apache2/sites-enabl
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
 COPY config/mysql-client/conf.d /etc/mysql/conf.d
 COPY config/db-check.sh /var/www/db-check.sh
-COPY phpunit-5.7.21.phar /usr/bin/phpunit
-COPY phpunit-3.7.28.phar /usr/bin/phpunit3
-COPY phpunit-7.5.14.phar /usr/bin/phpunit7
-COPY phpunit-8.2.5.phar /usr/bin/phpunit8
 
-RUN  chmod +x /usr/bin/phpunit
-RUN  chmod +x /usr/bin/phpunit3
-RUN  chmod +x /usr/bin/phpunit7
+COPY phpunit-8.5.41.phar /usr/bin/phpunit8
+COPY phpunit-9.6.22.phar /usr/bin/phpunit9
+COPY phpunit-10.5.39.phar /usr/bin/phpunit10
+COPY phpunit-11.5.1.phar /usr/bin/phpunit11
+
 RUN  chmod +x /usr/bin/phpunit8
+RUN  chmod +x /usr/bin/phpunit9
+RUN  chmod +x /usr/bin/phpunit10
+RUN  chmod +x /usr/bin/phpunit11
 
 # installing phan
 RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
-# enable and configure xdebug
-RUN pecl install xdebug-3.1.4
-
 # temporary switch on the "allow_url_fopen" to install composer and phan
-RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/apache2/php.ini
-RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/cli/php.ini
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/8.3/apache2/php.ini
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/8.3/cli/php.ini
 
 #installing nc command
-RUN apt install -y netcat
+# RUN apt install -y netcat
+RUN apt install -y netcat-traditional
+
+# Generating the report of installed packages
+RUN apt list --installed > /var/log/installed_packages_detailed_report.txt
