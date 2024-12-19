@@ -77,8 +77,8 @@ RUN echo "extension=timezonedb.so" >> /etc/php/8.3/cli/php.ini
 
 # # install php-ast module
 RUN pecl install ast
-RUN echo "extension=ast.so" >> /etc/php/7.4/apache2/php.ini
-RUN echo "extension=ast.so" >> /etc/php/7.4/cli/php.ini
+RUN echo "extension=ast.so" >> /etc/php/8.3/apache2/php.ini
+RUN echo "extension=ast.so" >> /etc/php/8.3/cli/php.ini
 
 # #install php-stats module
 RUN pecl install stats-2.0.3
