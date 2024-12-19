@@ -128,8 +128,8 @@ RUN cd /var/lib && composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
-RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/apache2/php.ini
-RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/7.4/cli/php.ini
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/8.3/apache2/php.ini
+RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/8.3/cli/php.ini
 
 #installing nc command
 RUN apt install -y netcat
