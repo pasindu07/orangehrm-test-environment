@@ -119,10 +119,10 @@ COPY phpunit-9.6.22.phar /usr/bin/phpunit9
 COPY phpunit-10.5.39.phar /usr/bin/phpunit10
 COPY phpunit-11.5.1.phar /usr/bin/phpunit11
 
-RUN  chmod +x /usr/bin/phpunit
-RUN  chmod +x /usr/bin/phpunit3
-RUN  chmod +x /usr/bin/phpunit7
 RUN  chmod +x /usr/bin/phpunit8
+RUN  chmod +x /usr/bin/phpunit9
+RUN  chmod +x /usr/bin/phpunit10
+RUN  chmod +x /usr/bin/phpunit11
 
 # installing phan
 RUN cd /var/lib && composer require --dev phan/phan
