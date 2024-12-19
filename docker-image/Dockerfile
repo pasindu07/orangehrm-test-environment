@@ -1,6 +1,5 @@
-FROM orangehrm/orangehrm-environment-images:prod-php-7.4-ubuntu20.04
+FROM orangehrm/prod-environment:ubuntu24.04-php8.3-latest
 
-MAINTAINER orangehrm
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
 
 # install dependent software
