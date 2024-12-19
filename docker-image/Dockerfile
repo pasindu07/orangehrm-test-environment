@@ -21,14 +21,12 @@ ENV NODE_VERSION_D 6
 ENV NODE_VERSION_L 14.17.5
 
 #installing nodejs
-RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash \
-    && source ~/.bashrc \
+RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash \
     && . $NVM_DIR/nvm.sh \  
-    && source ~/.bashrc \
-    && nvm install 6 \
-    && nvm alias default 6 \
-    && nvm install 14.17.5 \
-    && nvm alias latest 14.17.5 \
+    && nvm install $NODE_VERSION_D \
+    && nvm alias default $NODE_VERSION_D \
+    && nvm install $NODE_VERSION_L \
+    && nvm alias latest $NODE_VERSION_L \
     && nvm install 18.18.0 \
     && nvm alias hydrogen 18.18.0 \
     && nvm ls \
