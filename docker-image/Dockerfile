@@ -134,3 +134,6 @@ RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php/8.3/cli/p
 #installing nc command
 # RUN apt install -y netcat
 RUN apt install -y netcat-traditional
+
+# Generating the report of installed packages
+RUN apt list --installed > /var/log/installed_packages_detailed_report.txt
