@@ -65,9 +65,15 @@ RUN git config --system url."https://".insteadOf git://
 #RUN npm install -f node-sass
 
 #install wkhtmltopdf (0.12.6)
-RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
-RUN apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb
-RUN rm -r wkhtmltox_0.12.6-1.focal_amd64.deb
+# RUN wget https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.focal_amd64.deb
+# RUN apt install -y ./wkhtmltox_0.12.6-1.focal_amd64.deb
+# RUN rm -r wkhtmltox_0.12.6-1.focal_amd64.deb
+RUN apt install -y wkhtmltopdf
+
+#update OSLON Timezone DB
+RUN pecl install timezonedb
+RUN echo "extension=timezonedb.so" >> /etc/php/8.3/apache2/php.ini
+RUN echo "extension=timezonedb.so" >> /etc/php/8.3/cli/php.ini
 
 # # install php-ast module
 RUN pecl install ast
