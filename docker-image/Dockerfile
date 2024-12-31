@@ -15,8 +15,9 @@ RUN apt-get install -y subversion
 
 # Replace shell with bash so we can source files
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
-RUN mkdir /usr/local/nvm
-ENV NVM_DIR /usr/local/nvm
+
+RUN mkdir /root/.nvm
+ENV NVM_DIR /root/.nvm
 ENV NODE_VERSION_D 6
 ENV NODE_VERSION_L 14.17.5
 
