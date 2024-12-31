@@ -2,7 +2,7 @@ name: OrangeHRM TEST Image Build Workflow
 
 on:
   push:
-    branches: [ php-8.3-ubuntu-24.04 ] 
+    branches: [ test-email-notification ] 
   schedule:
     - cron: '30 0 * * MON'  # 0030 in UTC, 0600 in IST
   workflow_dispatch:
@@ -83,6 +83,15 @@ jobs:
         if: ${{ github.repository == env.UPSTREAM_REPO && github.ref == env.UPSTREAM_BRANCH }}
         run: docker logout
 
+      - name: Check for attachment
+        if: always()
+        run: |
+          if [ -f "./installed_packages_detailed_report.txt" ]; then
+            echo "attachment=installed_packages_detailed_report.txt" >> $GITHUB_ENV
+          else
+            echo "attachment=" >> $GITHUB_ENV
+          fi
+
       - name: Send the email notification
         if: always()
         uses: dawidd6/action-send-mail@v2
@@ -101,4 +110,4 @@ jobs:
           to: ${{ vars.EMAIL_RECIPIENTS }}
           # from email name
           from: DockHRM Automator
-          attachments : installed_packages_detailed_report.txt
+          attachments : ${{ env.attachment }}
