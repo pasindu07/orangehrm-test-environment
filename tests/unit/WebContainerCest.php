@@ -71,7 +71,7 @@ class WebContainerCest
 
     public function checkNodeIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify node is installed in the image");
-        $I->runShellCommand('docker exec test_web_ubuntu bash -c \'export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";node -v;\'');
+        $I->runShellCommand('docker exec test_web_ubuntu bash -c \'export NVM_DIR="/root/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";node -v;\'');
         $I->seeInShellOutput('v6.17.1');
     }
 
@@ -90,13 +90,13 @@ class WebContainerCest
 
     public function checkBowerIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify bower is installed in the image");
-        $I->runShellCommand('docker exec test_web_ubuntu bash -c \'export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";bower --version;\'');
+        $I->runShellCommand('docker exec test_web_ubuntu bash -c \'export NVM_DIR="/root/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";bower --version;\'');
         $I->seeInShellOutput('1.8');
     }
 
     public function checkGulpIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify Gulp is installed in the image");
-        $I->runShellCommand('docker exec test_web_ubuntu bash -c \'export NVM_DIR="/usr/local/nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";gulp --version;\'');
+        $I->runShellCommand('docker exec test_web_ubuntu bash -c \'export NVM_DIR="/root/.nvm"; [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh";gulp --version;\'');
         $I->seeInShellOutput('version: 2');
     }
 
