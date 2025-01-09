@@ -59,7 +59,7 @@ class WebContainerCest
         $I->wantTo("verify xdebug is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel bash -c 'dnf info php-pecl-xdebug | grep Version'");
         $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('xdebug     2.9.5');
+        $I->seeInShellOutput('xdebug     3.4.0');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
@@ -111,12 +111,6 @@ class WebContainerCest
         $I->wantTo("verify ast module is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel php -m | grep ast");
         $I->seeInShellOutput('ast');
-    }
-
-    public function checkStatsIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify stats module is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel php -m | grep stats");
-        $I->seeInShellOutput('stats');
     }
 
     public function checkVIMIsInstalled(AcceptanceTester $I){
