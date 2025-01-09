@@ -2,15 +2,14 @@ name: OrangeHRM TEST Image Build Workflow
 
 on:
   push:
-    branches: [ php-7.4-rhel-8 ]
+    branches: [ php-8.2-rhel-8 ]
   schedule:
     - cron: '30 0 * * MON'  # 0030 in UTC, 0600 in IST
   workflow_dispatch:
 
 env:
   REGISTRY: hub.docker.com
-  DOCKER_HUB_REPO: "orangehrm/orangehrm-environment-images"
-  TAG_NAME: "test-php-7.4.33-rhel-8"
+  DOCKER_HUB_REPO: "orangehrm/test-environment"
   LATEST_TAG_NAME: "test-php-latest-rhel-8"
   UPSTREAM_REPO: "orangehrm/orangehrm-test-environment"
   UPSTREAM_BRANCH: "refs/heads/php-7.4-rhel-8"
