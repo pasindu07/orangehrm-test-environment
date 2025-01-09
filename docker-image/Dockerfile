@@ -105,10 +105,10 @@ COPY config/nvm /opt/nvm
 
 RUN  chmod 544 /opt/nvm
 
-RUN  chmod +x /usr/bin/phpunit
-RUN  chmod +x /usr/bin/phpunit3
-RUN  chmod +x /usr/bin/phpunit7
 RUN  chmod +x /usr/bin/phpunit8
+RUN  chmod +x /usr/bin/phpunit9
+RUN  chmod +x /usr/bin/phpunit10
+RUN  chmod +x /usr/bin/phpunit11
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
