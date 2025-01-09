@@ -59,7 +59,7 @@ class WebContainerCest
         $I->wantTo("verify xdebug is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel bash -c 'dnf info php-pecl-xdebug | grep Version'");
         $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('xdebug     3.4.0');
+        $I->seeInShellOutput('xdebug     2.9.5');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
