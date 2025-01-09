@@ -19,33 +19,33 @@ class WebContainerCest
 
 
     public function checkPHPVersion(UnitTester $I){
-        $I->wantTo("verify php 7.4 is installed in the container");
+        $I->wantTo("verify php 8.2 is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel php --version");
-        $I->seeInShellOutput('PHP 7.4');
+        $I->seeInShellOutput('PHP 8.2');
     }
 
     public function checkPHPUnitVersion(UnitTester $I){
-        $I->wantTo("verify phpunit 5 library is installed in the container");
+        $I->wantTo("verify phpunit 8 library is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel phpunit --version");
-        $I->seeInShellOutput('PHPUnit 5.7.21');
+        $I->seeInShellOutput('PHPUnit 8.5.41');
     }
 
     public function checkPHPUnit3Version(UnitTester $I){
-        $I->wantTo("verify phpunit 3 library is installed in the container");
+        $I->wantTo("verify phpunit 9 library is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel phpunit3 --version");
-        $I->seeInShellOutput('PHPUnit 3.7.28');
+        $I->seeInShellOutput('PHPUnit 9.6.22');
     }
 
     public function checkPHPUnit7Version(UnitTester $I){
-        $I->wantTo("verify phpunit 7 library is installed in the container");
+        $I->wantTo("verify phpunit 10 library is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel phpunit7 --version");
-        $I->seeInShellOutput('PHPUnit 7.5.14');
+        $I->seeInShellOutput('PHPUnit 10.5.39');
     }
 
     public function checkPHPUnit8Version(UnitTester $I){
-        $I->wantTo("verify phpunit 8 library is installed in the container");
+        $I->wantTo("verify phpunit 11 library is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel phpunit8 --version");
-        $I->seeInShellOutput('PHPUnit 8.2.5');
+        $I->seeInShellOutput('PHPUnit 11.5.1');
     }
 
     public function checkNcCommand(UnitTester $I){
@@ -59,7 +59,7 @@ class WebContainerCest
         $I->wantTo("verify xdebug is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel bash -c 'dnf info php-pecl-xdebug | grep Version'");
         $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('2');
+        $I->seeInShellOutput('xdebug     3.4.0');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
