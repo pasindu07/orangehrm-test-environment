@@ -127,7 +127,7 @@ class WebContainerCest
 
     public function checkComposer2IsInstalled(AcceptanceTester $I){
         $I->wantTo("verify composer2 is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel composer2 --version");
+        $I->runShellCommand("docker exec test_web_rhel /user/local/bin/compose --version");
         $I->seeInShellOutput('Composer version 2');
     }
 
