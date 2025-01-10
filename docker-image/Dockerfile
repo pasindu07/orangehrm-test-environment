@@ -7,7 +7,7 @@ ARG REDHAT_USERNAME
 ARG REDHAT_PASSWORD
 
 # Register a system with the Red Hat Customer Portal
-RUN subscription-manager register --username $REDHAT_USERNAME --password $REDHAT_PASSWORD && \
+RUN subscription-manager register --username deeghayu --password Techops@orangehrm@123 && \
 subscription-manager refresh && \
 subscription-manager attach --auto
 
@@ -112,7 +112,7 @@ RUN  chmod +x /usr/bin/phpunit11
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
-RUN cd /var/lib && composer require --dev phan/phan
+RUN cd /var/lib && /usr/local/bin/composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
