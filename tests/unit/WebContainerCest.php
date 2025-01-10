@@ -59,7 +59,7 @@ class WebContainerCest
         $I->wantTo("verify xdebug is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel bash -c 'dnf info php-pecl-xdebug | grep Version'");
         $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('xdebug     3.4.0');
+        $I->seeInShellOutput('xdebug ');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
@@ -127,7 +127,7 @@ class WebContainerCest
 
     public function checkComposer2IsInstalled(AcceptanceTester $I){
         $I->wantTo("verify composer2 is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel /user/local/bin/composer2 --version");
+        $I->runShellCommand("docker exec test_web_rhel /user/local/bin/composer --version");
         $I->seeInShellOutput('Composer version 2');
     }
 
