@@ -112,7 +112,7 @@ RUN  chmod +x /usr/bin/phpunit11
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
-RUN cd /var/lib && /usr/local/bin/composer require --dev phan/phan
+RUN cd /var/lib && /usr/local/bin/compose require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
