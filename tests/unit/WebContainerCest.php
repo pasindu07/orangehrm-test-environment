@@ -19,33 +19,33 @@ class WebContainerCest
 
 
     public function checkPHPVersion(UnitTester $I){
-        $I->wantTo("verify php 7.4 is installed in the container");
+        $I->wantTo("verify php 8.2 is installed in the container");
         $I->runShellCommand("docker exec test_web_rhel php --version");
-        $I->seeInShellOutput('PHP 7.4');
+        $I->seeInShellOutput('PHP 8.2');
     }
 
     public function checkPHPUnitVersion(UnitTester $I){
-        $I->wantTo("verify phpunit 5 library is installed in the container");
-        $I->runShellCommand("docker exec test_web_rhel phpunit --version");
-        $I->seeInShellOutput('PHPUnit 5.7.21');
+        $I->wantTo("verify phpunit 8 library is installed in the container");
+        $I->runShellCommand("docker exec test_web_rhel phpunit8 --version");
+        $I->seeInShellOutput('PHPUnit 8.5.41');
     }
 
     public function checkPHPUnit3Version(UnitTester $I){
-        $I->wantTo("verify phpunit 3 library is installed in the container");
-        $I->runShellCommand("docker exec test_web_rhel phpunit3 --version");
-        $I->seeInShellOutput('PHPUnit 3.7.28');
+        $I->wantTo("verify phpunit 9 library is installed in the container");
+        $I->runShellCommand("docker exec test_web_rhel phpunit9 --version");
+        $I->seeInShellOutput('PHPUnit 9.6.22');
     }
 
     public function checkPHPUnit7Version(UnitTester $I){
-        $I->wantTo("verify phpunit 7 library is installed in the container");
-        $I->runShellCommand("docker exec test_web_rhel phpunit7 --version");
-        $I->seeInShellOutput('PHPUnit 7.5.14');
+        $I->wantTo("verify phpunit 10 library is installed in the container");
+        $I->runShellCommand("docker exec test_web_rhel phpunit10 --version");
+        $I->seeInShellOutput('PHPUnit 10.5.39');
     }
 
     public function checkPHPUnit8Version(UnitTester $I){
-        $I->wantTo("verify phpunit 8 library is installed in the container");
-        $I->runShellCommand("docker exec test_web_rhel phpunit8 --version");
-        $I->seeInShellOutput('PHPUnit 8.2.5');
+        $I->wantTo("verify phpunit 11 library is installed in the container");
+        $I->runShellCommand("docker exec test_web_rhel phpunit11 --version");
+        $I->seeInShellOutput('PHPUnit 11.5.1');
     }
 
     public function checkNcCommand(UnitTester $I){
@@ -57,9 +57,8 @@ class WebContainerCest
 
     public function checkXdebugVersion(AcceptanceTester $I){
         $I->wantTo("verify xdebug is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel bash -c 'dnf info php-pecl-xdebug | grep Version'");
-        $I->seeInShellOutput('Version');
-        $I->seeInShellOutput('2');
+        $I->runShellCommand("docker exec test_web_rhel bash -c 'pecl list | grep xdebug'");
+        $I->seeInShellOutput('xdebug     3.4.0 ');
     }
 
     public function checkGitVersion(AcceptanceTester $I){
@@ -113,27 +112,21 @@ class WebContainerCest
         $I->seeInShellOutput('ast');
     }
 
-    public function checkStatsIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify stats module is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel php -m | grep stats");
-        $I->seeInShellOutput('stats');
-    }
-
     public function checkVIMIsInstalled(AcceptanceTester $I){
         $I->wantTo("verify vim editor is installed in the image");
         $I->runShellCommand("docker exec test_web_rhel vim --version");
         $I->seeInShellOutput('Vi IMproved');
     }
 
-    public function checkComposerIsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify composer is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel composer --version");
-        $I->seeInShellOutput('Composer version 1');
-    }
+    //public function checkComposerIsInstalled(AcceptanceTester $I){
+    //    $I->wantTo("verify composer is installed in the image");
+    //    $I->runShellCommand("docker exec test_web_rhel composer --version");
+    //    $I->seeInShellOutput('Composer version 1');
+    //}
 
     public function checkComposer2IsInstalled(AcceptanceTester $I){
-        $I->wantTo("verify composer2 is installed in the image");
-        $I->runShellCommand("docker exec test_web_rhel composer2 --version");
+        $I->wantTo("verify composer is installed in the image");
+        $I->runShellCommand("docker exec test_web_rhel /usr/local/bin/composer --version");
         $I->seeInShellOutput('Composer version 2');
     }
 

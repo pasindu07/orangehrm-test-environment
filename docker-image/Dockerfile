@@ -1,4 +1,4 @@
-FROM orangehrm/orangehrm-environment-images:prod-php-latest-rhel-8
+FROM orangehrm/prod-environment:rhel8-php-8.2-latest
 
 LABEL maintainer = "orangehrm"
 LABEL authors = "OrangeHRM TechOps <techops@orangehrm.com>"
@@ -61,18 +61,18 @@ RUN git config --system url."https://".insteadOf git://
 RUN pecl install ast
 RUN echo "extension=ast.so" >> /etc/php.ini
 
-#install php-stats module
-RUN pecl install stats-2.0.3
-RUN echo "extension=stats.so" >> /etc/php.ini
+##install php-stats module
+#RUN pecl install stats-2.0.3
+#RUN echo "extension=stats.so" >> /etc/php.ini
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = Off$:allow_url_fopen = On:g' /etc/php.ini
 
 # installing the  composer 1.x 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.27
+#RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer --version=1.10.27
 
 # installing the  composer 2.x 
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer2 --version=2.7.8
+RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');" && php composer-setup.php && php -r "unlink('composer-setup.php');" && mv composer.phar /usr/local/bin/composer
 
 #add vhost config
 COPY config/apache2-sites/orangehrm.conf /etc/httpd/sites-available/orangehrm.conf
@@ -92,27 +92,31 @@ RUN dnf localinstall -y wkhtmltox-0.12.6-1.centos8.x86_64.rpm
 COPY config/mysql-client/my.cnf /etc/mysql/my.cnf
 COPY config/mysql-client/conf.d /etc/mysql/conf.d
 COPY config/db-check.sh /var/www/db-check.sh
-COPY phpunit-5.7.21.phar /usr/bin/phpunit
-COPY phpunit-3.7.28.phar /usr/bin/phpunit3
-COPY phpunit-7.5.14.phar /usr/bin/phpunit7
-COPY phpunit-8.2.5.phar /usr/bin/phpunit8
+#COPY phpunit-5.7.21.phar /usr/bin/phpunit
+#COPY phpunit-3.7.28.phar /usr/bin/phpunit3
+#COPY phpunit-7.5.14.phar /usr/bin/phpunit7
+#COPY phpunit-8.2.5.phar /usr/bin/phpunit8
+COPY phpunit-8.5.41.phar /usr/bin/phpunit8
+COPY phpunit-9.6.22.phar /usr/bin/phpunit9
+COPY phpunit-10.5.39.phar /usr/bin/phpunit10
+COPY phpunit-11.5.1.phar /usr/bin/phpunit11
 
 COPY config/nvm /opt/nvm
 
 RUN  chmod 544 /opt/nvm
 
-RUN  chmod +x /usr/bin/phpunit
-RUN  chmod +x /usr/bin/phpunit3
-RUN  chmod +x /usr/bin/phpunit7
 RUN  chmod +x /usr/bin/phpunit8
+RUN  chmod +x /usr/bin/phpunit9
+RUN  chmod +x /usr/bin/phpunit10
+RUN  chmod +x /usr/bin/phpunit11
 #CMD ["/usr/sbin/apache2ctl", "-D", "FOREGROUND"]
 
 # installing phan
-RUN cd /var/lib && composer require --dev phan/phan
+RUN cd /var/lib && /usr/local/bin/composer require --dev phan/phan
 RUN ln -s /var/lib/vendor/bin/phan /usr/bin/phan
 
 # enable and configure xdebug
-RUN pecl install xdebug-3.1.4
+RUN pecl install xdebug-3.4.0
 
 # temporary switch on the "allow_url_fopen" to install composer and phan
 RUN sed -i 's:^allow_url_fopen = On$:allow_url_fopen = Off:g' /etc/php.ini
