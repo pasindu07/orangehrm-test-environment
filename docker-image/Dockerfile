@@ -7,7 +7,7 @@ ARG REDHAT_USERNAME
 ARG REDHAT_PASSWORD
 
 # Register a system with the Red Hat Customer Portal
-RUN subscription-manager register --username deeghayu --password Techops@orangehrm@123 && \
+RUN subscription-manager register --username $REDHAT_USERNAME --password $REDHAT_PASSWORD && \
 subscription-manager refresh && \
 subscription-manager attach --auto
 
