@@ -50,9 +50,10 @@ jobs:
       - name: Get installed php version
         run: echo "PHP_VERSION=${{ env.OS_VERSION }}-php$(docker exec $(docker ps --format '{{.Names}}' | head -n 1) php -r 'echo PHP_VERSION;')" >> $GITHUB_ENV
 
-      - name: New image with a version tag & latest tag
+      - name: Set TAG_NAME with date
         run: |
-          docker tag ${{ env.DOCKER_HUB_REPO }}:${{ env.LATEST_TAG_NAME }} ${{ env.DOCKER_HUB_REPO }}:${{ env.VERSION_TAG_NAME }}
+          CURRENT_DATE=$(date +'%d%m%y')
+          echo VERSION_TAG_NAME="${{ env.PHP_VERSION }}-${CURRENT_DATE}" >> $GITHUB_ENV
 
       - name: New image with a version tag
         run: |
